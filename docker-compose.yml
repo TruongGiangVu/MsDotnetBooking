@@ -1,0 +1,109 @@
+services:
+  opensearch: # This is also the hostname of the container within the Docker network (i.e. https://opensearch-node1/)
+    image: opensearchproject/opensearch:latest
+    container_name: opensearch
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true # Disable JVM heap memory swapping
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=openSearch@123 # Sets the demo admin user password when using demo configuration (for OpenSearch 2.12 and later)
+    ulimits:
+      memlock:
+        soft: -1 # Set memlock to unlimited (no soft or hard limit)
+        hard: -1
+      nofile:
+        soft: 65536 # Maximum number of open files for the opensearch user - set to at least 65536
+        hard: 65536
+    volumes:
+      - ./data/opensearch:/usr/share/opensearch/data # Creates volume called opensearch-data1 and mounts it to the container
+    ports:
+      - 9200:9200 # REST API
+      - 9600:9600 # Performance Analyzer
+    networks:
+      - booking-hotel-net # All of the containers will join the same Docker bridge network
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:latest # Make sure the version of opensearch-dashboards matches the version of opensearch installed on other nodes
+    container_name: opensearch-dashboards
+    ports:
+      - 5601:5601 # Map host port 5601 to container port 5601
+    expose:
+      - "5601" # Expose port 5601 for web access to OpenSearch Dashboards
+    environment:
+      OPENSEARCH_HOSTS: '["https://opensearch:9200"]' # Define the OpenSearch nodes that OpenSearch Dashboards will query
+    networks:
+      - booking-hotel-net
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672" # AMQP
+      - "15672:15672" # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - booking-hotel-net
+
+  postgres:
+    image: postgres:15
+    container_name: my_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydb
+    networks:
+      - booking-hotel-net
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  admin-hotel-api:
+    image: admin-hotel-api
+    container_name: admin-hotel-api
+    ports:
+      - "5085:5000"
+    volumes:
+      - ./data/AdminHotelApi/logs:/app/logs
+    depends_on:
+      - opensearch
+      - rabbitmq
+      - postgres
+    networks:
+      - booking-hotel-net
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  customer-hotel-api:
+    image: customer-hotel-api
+    container_name: customer-hotel-api
+    ports:
+      - "5086:5000"
+    volumes:
+      - ./data/CustomerHotelApi/logs:/app/logs
+    depends_on:
+      - opensearch
+      - rabbitmq
+    networks:
+      - booking-hotel-net
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  command-hotel-worker:
+    image: command-hotel-worker
+    container_name: command-hotel-worker
+    depends_on:
+      - opensearch
+      - rabbitmq
+    networks:
+      - booking-hotel-net
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ./data/CommandHotelWorker/logs:/app/logs
+
+networks:
+  booking-hotel-net:
+    driver: bridge
