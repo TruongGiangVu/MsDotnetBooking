@@ -61,7 +61,10 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
 
   admin-hotel-api:
-    image: admin-hotel-api
+    # image: admin-hotel-api
+    build:
+      context: ./services/AdminHotelApi # Location of the Dockerfile
+      dockerfile: Dockerfile # Optional if the file is named 'Dockerfile'
     container_name: admin-hotel-api
     ports:
       - "5085:5000"
@@ -75,9 +78,18 @@ services:
       - booking-hotel-net
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - POSTGRESQL_CONNECTION_STRING=Host=postgres;Port=5432;Database=mydb;Username=postgres;Password=postgres
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
+      - RABBITMQ_VIRTUAL_HOST=/
 
   customer-hotel-api:
-    image: customer-hotel-api
+    # image: customer-hotel-api
+    build:
+      context: ./services/CustomerHotelApi # Location of the Dockerfile
+      dockerfile: Dockerfile # Optional if the file is named 'Dockerfile'
     container_name: customer-hotel-api
     ports:
       - "5086:5000"
@@ -90,9 +102,22 @@ services:
       - booking-hotel-net
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
+      - RABBITMQ_VIRTUAL_HOST=/
+      - RABBITMQ_HOTEL_QUEUE=hotel-queue
+      - OPENSEARCH_URL=https://opensearch:9200
+      - OPENSEARCH_USER=admin
+      - OPENSEARCH_PASS=openSearch@123
+      - OPENSEARCH_HOTEL_INDEX=hotel
 
   command-hotel-worker:
-    image: command-hotel-worker
+    # image: command-hotel-worker
+    build:
+      context: ./services/CommandHotelWorker # Location of the Dockerfile
+      dockerfile: Dockerfile # Optional if the file is named 'Dockerfile'
     container_name: command-hotel-worker
     depends_on:
       - opensearch
@@ -101,6 +126,10 @@ services:
       - booking-hotel-net
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - OPENSEARCH_URL=https://opensearch:9200
+      - OPENSEARCH_USER=admin
+      - OPENSEARCH_PASS=openSearch@123
+      - OPENSEARCH_HOTEL_INDEX=hotel
     volumes:
       - ./data/CommandHotelWorker/logs:/app/logs
 
