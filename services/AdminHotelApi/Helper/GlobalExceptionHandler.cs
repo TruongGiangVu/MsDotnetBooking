@@ -1,4 +1,4 @@
-using Core.Helper.Exceptions;
+using AdminHotelApi.Helper.Exceptions;
 
 using Microsoft.AspNetCore.Diagnostics;
 

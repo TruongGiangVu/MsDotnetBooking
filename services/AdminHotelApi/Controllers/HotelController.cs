@@ -1,7 +1,6 @@
+using AdminHotelApi.Models;
 using AdminHotelApi.Repositories;
 using AdminHotelApi.Services;
-
-using Core.Models;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,34 +33,49 @@ public class HotelController : ControllerBase
     [ProducesResponseType(typeof(ResponseDto<List<Hotel>>), StatusCodes.Status200OK)]
     public IActionResult GetHotel()
     {
-        return Ok("AdminHotelController is running!");
+        List<Hotel>? hotels = _hotelRepository.GetHotels();
+        return Ok(hotels);
     }
 
     [HttpGet("item/{id}")]
     [ProducesResponseType(typeof(ResponseDto<Hotel>), StatusCodes.Status200OK)]
     public IActionResult GetHotelById(string id)
     {
-        return Ok("AdminHotelController is running!");
+        _logger.LogInformation("{method}: {id}", nameof(GetHotelById), id);
+
+        ResponseDto<Hotel?> response = _hotelService.GetHotelById(id);
+
+        _logger.LogInformation("{method} response: {response}", nameof(GetHotelById), response.ToJsonString());
+        return Ok(response);
     }
 
     [HttpPost("item")]
     [ProducesResponseType(typeof(ResponseDto<Hotel>), StatusCodes.Status200OK)]
-    public IActionResult CreateHotel(CreateHotelDto input)
+    public async Task<IActionResult> CreateHotelAsync(CreateHotelDto input)
     {
-        return Ok("AdminHotelController is running!");
+        _logger.LogInformation("{method}: {input}", nameof(CreateHotelAsync), input.ToJsonString());
+        ResponseDto<Hotel> response = await _hotelService.CreateHotelAsync(input);
+        _logger.LogInformation("{method} response: {response}", nameof(CreateHotelAsync), response.ToJsonString());
+        return Ok(response);
     }
 
-    [HttpPost("item/{id}")]
+    [HttpPut("item/{id}")]
     [ProducesResponseType(typeof(ResponseDto<Hotel>), StatusCodes.Status200OK)]
-    public IActionResult UpdateHotel(UpdateHotelDto input)
+    public async Task<IActionResult> UpdateHotelAsync(string? id, UpdateHotelDto input)
     {
-        return Ok("AdminHotelController is running!");
+        _logger.LogInformation("{method}: {id}, {input}", nameof(UpdateHotelAsync), id, input.ToJsonString());
+        ResponseDto<Hotel> response = await _hotelService.UpdateHotelAsync(id, input);
+        _logger.LogInformation("{method} response: {response}", nameof(UpdateHotelAsync), response.ToJsonString());
+        return Ok(response);
     }
 
     [HttpDelete("item/{id}")]
     [ProducesResponseType(typeof(ResponseDto<Hotel>), StatusCodes.Status200OK)]
-    public IActionResult DeleteHotel(string id)
+    public async Task<IActionResult> DeleteHotelAsync(string id)
     {
-        return Ok("AdminHotelController is running!");
+        _logger.LogInformation("{method}: {id}", nameof(DeleteHotelAsync), id);
+        ResponseDto<Hotel> response = await _hotelService.DeleteHotelAsync(id);
+        _logger.LogInformation("{method} response: {response}", nameof(DeleteHotelAsync), response.ToJsonString());
+        return Ok(response);
     }
 }

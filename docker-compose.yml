@@ -1,7 +1,7 @@
 services:
   opensearch: # This is also the hostname of the container within the Docker network (i.e. https://opensearch-node1/)
     image: opensearchproject/opensearch:latest
-    container_name: opensearch
+    container_name: ms-opensearch
     environment:
       - discovery.type=single-node
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
@@ -24,7 +24,7 @@ services:
 
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:latest # Make sure the version of opensearch-dashboards matches the version of opensearch installed on other nodes
-    container_name: opensearch-dashboards
+    container_name: ms-opensearch-dashboards
     ports:
       - 5601:5601 # Map host port 5601 to container port 5601
     expose:
@@ -36,9 +36,10 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
+    container_name: ms-rabbitmq
     ports:
-      - "5672:5672" # AMQP
-      - "15672:15672" # Management UI
+      - "5673:5672" # AMQP
+      - "15673:15672" # Management UI
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
@@ -47,7 +48,7 @@ services:
 
   postgres:
     image: postgres:15
-    container_name: my_postgres
+    container_name: ms-postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -61,19 +62,19 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
 
   admin-hotel-api:
-    # image: admin-hotel-api
-    build:
-      context: ./services/AdminHotelApi # Location of the Dockerfile
-      dockerfile: Dockerfile # Optional if the file is named 'Dockerfile'
-    container_name: admin-hotel-api
+    image: admin-hotel-api
+    # build:
+    #   context: ./services/AdminHotelApi # Location of the Dockerfile
+    #   dockerfile: Dockerfile # Optional if the file is named 'Dockerfile'
+    container_name: ms-admin-hotel-api
     ports:
-      - "5085:5000"
+      - "5085:8080"
     volumes:
       - ./data/AdminHotelApi/logs:/app/logs
     depends_on:
-      - opensearch
       - rabbitmq
       - postgres
+      - opensearch
     networks:
       - booking-hotel-net
     environment:
@@ -84,17 +85,39 @@ services:
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
       - RABBITMQ_VIRTUAL_HOST=/
+      - OPENSEARCH_URL=https://opensearch:9200
+      - OPENSEARCH_USER=admin
+      - OPENSEARCH_PASS=openSearch@123
+      - OPENSEARCH_HOTEL_INDEX=hotel
 
   customer-hotel-api:
-    # image: customer-hotel-api
-    build:
-      context: ./services/CustomerHotelApi # Location of the Dockerfile
-      dockerfile: Dockerfile # Optional if the file is named 'Dockerfile'
-    container_name: customer-hotel-api
+    image: customer-hotel-api
+    # build:
+    #   context: ./services/CustomerHotelApi # Location of the Dockerfile
+    #   dockerfile: Dockerfile # Optional if the file is named 'Dockerfile'
+    container_name: ms-customer-hotel-api
     ports:
-      - "5086:5000"
+      - "5086:8080"
     volumes:
       - ./data/CustomerHotelApi/logs:/app/logs
+    depends_on:
+      - opensearch
+      - rabbitmq
+    networks:
+      - booking-hotel-net
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - OPENSEARCH_URL=https://opensearch:9200
+      - OPENSEARCH_USER=admin
+      - OPENSEARCH_PASS=openSearch@123
+      - OPENSEARCH_HOTEL_INDEX=hotel
+
+  command-hotel-worker:
+    image: command-hotel-worker
+    # build:
+    #   context: ./services/CommandHotelWorker # Location of the Dockerfile
+    #   dockerfile: Dockerfile # Optional if the file is named 'Dockerfile'
+    container_name: ms-command-hotel-worker
     depends_on:
       - opensearch
       - rabbitmq
@@ -108,24 +131,6 @@ services:
       - RABBITMQ_PASS=guest
       - RABBITMQ_VIRTUAL_HOST=/
       - RABBITMQ_HOTEL_QUEUE=hotel-queue
-      - OPENSEARCH_URL=https://opensearch:9200
-      - OPENSEARCH_USER=admin
-      - OPENSEARCH_PASS=openSearch@123
-      - OPENSEARCH_HOTEL_INDEX=hotel
-
-  command-hotel-worker:
-    # image: command-hotel-worker
-    build:
-      context: ./services/CommandHotelWorker # Location of the Dockerfile
-      dockerfile: Dockerfile # Optional if the file is named 'Dockerfile'
-    container_name: command-hotel-worker
-    depends_on:
-      - opensearch
-      - rabbitmq
-    networks:
-      - booking-hotel-net
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
       - OPENSEARCH_URL=https://opensearch:9200
       - OPENSEARCH_USER=admin
       - OPENSEARCH_PASS=openSearch@123

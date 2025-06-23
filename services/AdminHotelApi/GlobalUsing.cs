@@ -1,7 +1,9 @@
-global using Core.Constants;
-global using Core.Dtos;
-global using Core.Helper;
+global using AdminHotelApi.Constants;
+
+global using AdminHotelApi.Dtos;
+
+global using AdminHotelApi.Helper;
 
 global using Serilog;
 
-global using Ct = Core.Constants.AppConstant;
+global using Ct = AdminHotelApi.Constants.AppConstant;

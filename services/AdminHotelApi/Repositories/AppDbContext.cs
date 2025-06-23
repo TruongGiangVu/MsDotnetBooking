@@ -1,4 +1,4 @@
-using Core.Models;
+using AdminHotelApi.Models;
 
 using Microsoft.EntityFrameworkCore;
 

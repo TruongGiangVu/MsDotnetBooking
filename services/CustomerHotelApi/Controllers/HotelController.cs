@@ -1,4 +1,4 @@
-using Core.Models;
+using CustomerHotelApi.Models;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,8 +26,10 @@ public class HotelController : ControllerBase
     }
 
     [HttpGet("open-search/{id}")]
+    [ProducesResponseType(typeof(Hotel), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetOpenSearchHotelById(string id)
     {
+        _logger.LogInformation("Fetching hotel with ID: {Id}", id);
         var response = await _openSearchClient.GetAsync<Hotel>(id);
 
         if (!response.Found)
@@ -37,8 +39,10 @@ public class HotelController : ControllerBase
     }
 
     [HttpGet("open-search")]
-    public async Task<IActionResult> SearchOpenSearch(string name)
+    [ProducesResponseType(typeof(IEnumerable<Hotel>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> SearchOpenSearch([FromQuery] string? name)
     {
+        _logger.LogInformation("Searching hotels with name: {Name}", name);
         var searchResponse = await _openSearchClient.SearchAsync<Hotel>(s => s
             .Query(q => q
                 .Match(m => m

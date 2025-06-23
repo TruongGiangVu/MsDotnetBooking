@@ -1,4 +1,4 @@
-# AdminHotelApi
+# CustomerHotelApi
 
 ## Docker
 

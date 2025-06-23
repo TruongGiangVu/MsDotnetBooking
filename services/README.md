@@ -29,3 +29,9 @@ dotnet restore
 dotnet build
 dotnet format
 ```
+
+# Docker
+```
+docker build -f Dockerfile.admin -t admin-hotel-api .
+
+```
