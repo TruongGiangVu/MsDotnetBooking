@@ -14,12 +14,4 @@ public class QueueDto<T>
 
     [JsonPropertyOrder(2)]
     public T? Payload { get; set; } = default;
-
-    public QueueDto(QueueAction action = QueueAction.None, T? payload = default)
-    {
-        Action = action;
-        Payload = payload;
-    }
-
-    public QueueDto() { }
 }

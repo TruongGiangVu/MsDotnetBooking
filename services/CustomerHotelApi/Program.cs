@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 string environment = builder.Environment.EnvironmentName;
 
 builder.AddCultureInfo();
+
 // * Serilog
 // đọc serilog config từ file appsettings.json hoặc file appsettings.*.json, tùy vào môi trường api đang chạy
 var configuration = new ConfigurationBuilder()
@@ -90,7 +91,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-Log.Information($"{Ct.Common.AppName} start successfully");
+Log.Information($"{Ct.Common.ProjectName}.{Ct.Common.AppName} start successfully");
 Log.Information($"Run at environment: {environment}");
 
 app.Run();

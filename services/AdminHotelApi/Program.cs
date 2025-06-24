@@ -75,7 +75,7 @@ app.MapOpenApi();
 app.MapScalarApiReference("/scalar", options =>
 {
     options.Theme = ScalarTheme.BluePlanet;
-    options.AddDocument("v1", "Production API", "/openapi/{documentName}.json");
+    options.AddDocument("v1", "Admin Hotel API", "/openapi/{documentName}.json");
     options.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 });
 
@@ -84,7 +84,6 @@ app.MapGet("/", context =>
     context.Response.Redirect("scalar");
     return Task.CompletedTask;
 });
-// app.MapGet("/", () => $"${Ct.Common.AppName} is running");
 
 app.UseHttpsRedirection();
 
@@ -92,7 +91,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-Log.Information($"{Ct.Common.AppName} start successfully");
+Log.Information($"{Ct.Common.ProjectName}.{Ct.Common.AppName} start successfully");
 Log.Information($"Run at environment: {environment}");
 
 app.Run();

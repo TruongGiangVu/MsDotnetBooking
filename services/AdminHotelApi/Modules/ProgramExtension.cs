@@ -1,9 +1,5 @@
 using System.Globalization;
 
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace AdminHotelApi.Modules;
 
 public static class ProgramExtension
@@ -25,25 +21,4 @@ public static class ProgramExtension
         CultureInfo.DefaultThreadCurrentCulture = cultureInfo; // chỉnh lại trên source
         CultureInfo.DefaultThreadCurrentUICulture = cultureInfo; // chỉnh lại trên source
     }
-
-
-    /// <summary>
-    /// Gán một section cấu hình vào một class settings kiểu mạnh và đăng ký nó với service collection.
-    /// </summary>
-    /// <typeparam name="T">Kiểu class settings để gán. Phải là class có constructor không tham số.</typeparam>
-    /// <param name="configuration">Đối tượng cấu hình của ứng dụng.</param>
-    /// <param name="services">Service collection để đăng ký cấu hình.</param>
-    /// <param name="sectionName">Tên section cấu hình cần gán.</param>
-    /// <returns>
-    /// Một instance của <typeparamref name="T"/> đã được gán giá trị từ section cấu hình chỉ định,
-    /// hoặc <c>null</c> nếu section không tồn tại hoặc không thể gán.
-    /// </returns>
-    public static T? BindAppsettings<T>(IConfiguration configuration, IServiceCollection services, string? sectionName) where T : class, new()
-    {
-        IConfigurationSection section = configuration.GetSection(sectionName ?? typeof(T).Name);
-        services.Configure<T>(section);
-        return section.Get<T>();
-    }
-    // var appSettings = ConfigurationHelper.BindAppsettings<AppSettings>(builder.Configuration, builder.Services, nameof(AppSettings));
-
 }

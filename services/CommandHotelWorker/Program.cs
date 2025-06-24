@@ -1,5 +1,5 @@
 using CommandHotelWorker;
-
+using CommandHotelWorker.Constants;
 using CommandHotelWorker.Helper;
 using CommandHotelWorker.Services;
 
@@ -11,7 +11,7 @@ using Serilog.Sinks.OpenSearch;
 var builder = Host.CreateApplicationBuilder(args);
 
 string environment = builder.Environment.EnvironmentName;
-// Add services to the container.
+
 // * Serilog
 // đọc serilog config từ file appsettings.json hoặc file appsettings.*.json, tùy vào môi trường api đang chạy
 var configuration = new ConfigurationBuilder()
@@ -50,11 +50,12 @@ OpenSearchClient openSearchClient = new(settings);
 builder.Services.AddSingleton<IOpenSearchClient>(openSearchClient);
 
 builder.Services.AddSingleton<IOpenSearchService, OpenSearchService>();
+builder.Services.AddSingleton<IRabbitMQService, RabbitMQService>();
 builder.Services.AddHostedService<Worker>();
 
 var host = builder.Build();
 
-Log.Information("Worker start successfully");
+Log.Information($"{AppConstant.Common.ProjectName}.{AppConstant.Common.AppName} start successfully");
 Log.Information($"Run at environment: {environment}");
 
 host.Run();

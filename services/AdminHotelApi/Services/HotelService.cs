@@ -2,7 +2,6 @@ using AdminHotelApi.Helper.Exceptions;
 using AdminHotelApi.Models;
 using AdminHotelApi.Repositories;
 
-
 namespace AdminHotelApi.Services;
 
 public class HotelService : IHotelService

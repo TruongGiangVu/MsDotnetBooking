@@ -46,6 +46,4 @@ public static class EnumExtension
                             enumValue.GetDisplay() :
                             message;
     }
-
-
 }

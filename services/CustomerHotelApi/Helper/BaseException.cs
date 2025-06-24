@@ -1,6 +1,6 @@
 
 
-namespace CustomerHotelApi.Helper.Exceptions;
+namespace CustomerHotelApi.Helper;
 
 public class BaseException : Exception
 {

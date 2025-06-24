@@ -16,34 +16,22 @@ public class Worker : BackgroundService
 {
     private readonly ILogger<Worker> _logger;
     private readonly IOpenSearchService _openSearchService;
+    private readonly IRabbitMQService _rabbitMQService;
     private IConnection? _connection;
     private IChannel? _channel;
 
-    public Worker(ILogger<Worker> logger, IOpenSearchService openSearchService)
+    public Worker(ILogger<Worker> logger,
+                IOpenSearchService openSearchService,
+                IRabbitMQService rabbitMQService)
     {
         _logger = logger;
         _openSearchService = openSearchService;
+        _rabbitMQService = rabbitMQService;
     }
     public override async Task StartAsync(CancellationToken cancellationToken)
     {
-        ConnectionFactory factory = new()
-        {
-            HostName = EnvConfig.RabbitMQ.Host,
-            Port = EnvConfig.RabbitMQ.Port,
-            UserName = EnvConfig.RabbitMQ.UserName,
-            Password = EnvConfig.RabbitMQ.Password,
-        };
-
-        _connection = await factory.CreateConnectionAsync(cancellationToken);
-        _channel = await _connection.CreateChannelAsync(cancellationToken: cancellationToken);
-
-        await _channel.QueueDeclareAsync(
-            queue: EnvConfig.RabbitMQ.HotelQueue,
-            durable: true,
-            exclusive: false,
-            autoDelete: false,
-            arguments: null,
-            cancellationToken: cancellationToken);
+        _connection = await _rabbitMQService.CreateConnection(cancellationToken);
+        _channel = await _rabbitMQService.CreateChannelAndDeclareQueue(_connection, cancellationToken);
         await base.StartAsync(cancellationToken);
     }
 
@@ -63,9 +51,7 @@ public class Worker : BackgroundService
             {
                 try
                 {
-                    byte[]? body = ea.Body.ToArray();
-                    string json = Encoding.UTF8.GetString(body);
-                    QueueDto<Hotel>? msg = JsonSerializer.Deserialize<QueueDto<Hotel>>(json);
+                    QueueDto<Hotel>? msg = _rabbitMQService.ExtractHotelFromEvent(ea);
                     _logger.LogInformation("[✔] Hotel Received (time): {time}, {msg}", DateTime.Now, msg.ToJsonString());
                     Hotel? hotel = msg?.Payload;
                     if (msg is null || hotel is null)
@@ -82,9 +68,7 @@ public class Worker : BackgroundService
                 {
                     _logger.LogError(ex, "Error processing message");
                 }
-
             };
-
             await _channel.BasicConsumeAsync(queue: EnvConfig.RabbitMQ.HotelQueue, autoAck: false, consumer: consumer, cancellationToken: stoppingToken);
         }
     }

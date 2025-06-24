@@ -1,5 +1,3 @@
-using CustomerHotelApi.Helper.Exceptions;
-
 using Microsoft.AspNetCore.Diagnostics;
 
 using Serilog.Context;
@@ -27,7 +25,6 @@ public class GlobalExceptionHandler : IExceptionHandler
         {
             string methodName = exception.TargetSite?.Name ?? string.Empty;
             Log.Error("{methodName} handle Exception: {response}", methodName, response.ToJsonString());
-            //logger.LogError($"{response.ToLogString()}");
         }
         await httpContext.Response.WriteAsJsonAsync(response, cancellationToken).ConfigureAwait(false);
         return true;
