@@ -70,7 +70,7 @@ docker build -t customer-hotel-api ./services/CustomerHotelApi
 docker compose up -d
 ```
 
-5. Sau khi chạy thành công, có thể mở các service trên website mục
+5. Sau khi chạy thành công, có thể mở các service trên website mục [Display](#display)
 
 ## Display
 
