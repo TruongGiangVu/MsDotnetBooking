@@ -1,0 +1,129 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Page-1" id="_QNTJVpY6B_m-3h8Ogcr">
+    <mxGraphModel dx="868" dy="528" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="KP_LOocWE85lXmoGuLkb-2" value="OpenSearch&amp;nbsp;&lt;div&gt;Dashhoard&lt;/div&gt;&lt;div&gt;9200:9200&lt;/div&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.opensearch_dashboards;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="78" height="59" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="KP_LOocWE85lXmoGuLkb-3" target="KP_LOocWE85lXmoGuLkb-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-27" value="View" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KP_LOocWE85lXmoGuLkb-13">
+          <mxGeometry x="-0.3847" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-3" value="OpenSearch&lt;div&gt;Service&lt;/div&gt;&lt;div&gt;5601:5601&lt;/div&gt;" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elasticsearch_service;" vertex="1" parent="1">
+          <mxGeometry x="360" y="180" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="KP_LOocWE85lXmoGuLkb-4" target="KP_LOocWE85lXmoGuLkb-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-23" value="Consume Hotel" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KP_LOocWE85lXmoGuLkb-16">
+          <mxGeometry x="-0.1594" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="KP_LOocWE85lXmoGuLkb-4" target="KP_LOocWE85lXmoGuLkb-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-26" value="View" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KP_LOocWE85lXmoGuLkb-19">
+          <mxGeometry x="0.3299" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-4" value="RabbitMQ Queue&lt;div&gt;5673:5672&lt;/div&gt;" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.queue;fillColor=#D9A741;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="320" y="340" width="73.5" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-5" value="RabbitMQ UI&lt;div&gt;15673:15672&lt;/div&gt;" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.communications.queue_viewer;" vertex="1" parent="1">
+          <mxGeometry x="327.25" y="470" width="59" height="57" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-6" value="PostgreSql&lt;div&gt;5432:5432&lt;/div&gt;" style="shape=datastore;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="40" y="388" width="60" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=classic;startFill=1;strokeWidth=2;" edge="1" parent="1" source="KP_LOocWE85lXmoGuLkb-7" target="KP_LOocWE85lXmoGuLkb-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-25" value="CRUD Hotel" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KP_LOocWE85lXmoGuLkb-14">
+          <mxGeometry x="0.2717" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="KP_LOocWE85lXmoGuLkb-7" target="KP_LOocWE85lXmoGuLkb-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-24" value="Push Hotel" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KP_LOocWE85lXmoGuLkb-15">
+          <mxGeometry x="-0.355" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=classic;startFill=0;endFill=1;" edge="1" parent="1" source="KP_LOocWE85lXmoGuLkb-7" target="KP_LOocWE85lXmoGuLkb-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="181" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-29" value="Write log" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KP_LOocWE85lXmoGuLkb-28">
+          <mxGeometry x="-0.4917" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-7" value="Admin Hotel Api&lt;div&gt;5085:8080&lt;/div&gt;" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;prIcon=api" vertex="1" parent="1">
+          <mxGeometry x="150" y="332.5" width="61.44" height="59" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-20" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="KP_LOocWE85lXmoGuLkb-8" target="KP_LOocWE85lXmoGuLkb-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-22" value="CUD Hotel" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KP_LOocWE85lXmoGuLkb-20">
+          <mxGeometry x="-0.0535" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="KP_LOocWE85lXmoGuLkb-8" target="KP_LOocWE85lXmoGuLkb-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="550" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-35" value="Write log" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KP_LOocWE85lXmoGuLkb-34">
+          <mxGeometry x="-0.5844" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-8" value="Command Hotel Worker" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.worker;fillColor=#D9A741;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="520" y="332.5" width="60" height="63" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-10" value="Customer Hotel Api&lt;div&gt;5086:8080&lt;/div&gt;" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;prIcon=api" vertex="1" parent="1">
+          <mxGeometry x="620" y="187" width="61.44" height="59" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="KP_LOocWE85lXmoGuLkb-8" target="KP_LOocWE85lXmoGuLkb-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.072;entryY=0.531;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;" edge="1" parent="1" source="KP_LOocWE85lXmoGuLkb-3" target="KP_LOocWE85lXmoGuLkb-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-21" value="Query" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KP_LOocWE85lXmoGuLkb-18">
+          <mxGeometry x="0.2642" y="-1" relative="1" as="geometry">
+            <mxPoint x="-20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;endArrow=classic;startFill=0;endFill=1;" edge="1" parent="1" source="KP_LOocWE85lXmoGuLkb-10" target="KP_LOocWE85lXmoGuLkb-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="529" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KP_LOocWE85lXmoGuLkb-33" value="Write log" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KP_LOocWE85lXmoGuLkb-32">
+          <mxGeometry x="-0.1758" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
